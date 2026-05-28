@@ -1,0 +1,25 @@
+{% extends 'introautomabigdata.html' %}
+
+{% block content %}
+
+     <h1 class="text-center">Semestre 1</h1><h1>Introducción a l primer semestre de Ingenieria Forestal</h1>           
+     <form class="w-50 shadow mx-auto p-4 m-3" method="post" action="{% url 'editar' %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="id" value="{{ asignatura.id }}">
+
+         Curso: <input type="text" name="curso" class=
+        "form-control my-2" required>
+
+         Semestre: <input class="form-control my-2" name="semestre" required value="{{asignatura.semestre}}">
+
+         Contenido: <textarea class="form-control my-2" name="contenido" >
+            {{asignatura.contenido}}
+         </textarea>
+
+         <input type="submit" value="Actualizar" class="btn btn-warning" >
+         
+     </form>
+
+     
+{% endblock %}

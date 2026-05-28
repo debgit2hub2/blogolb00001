@@ -1,0 +1,66 @@
+{% extends 'introautomabigdata.html' %}
+
+{% block content %}
+
+     {% if messages %}
+         {%for message in messages %}
+            <div class="alert alert-warner">{{ messages }}</div>
+         {% endfor %}
+     {% endif %}    
+ 
+     <h1 class="text-center">Semestre 1</h1><h1>Introducción al primer semestre de Ingenieria Forestal</h1>
+        {% load static %}
+     <link rel="stylesheet" type="text/css" href="{% static 'estilos.css' %}">
+     <form class="w-50 shadow mx-auto p-4 m-3" method="post" action="asignatura/guardar">
+        {% csrf_token %}
+         Curso: <input type="text" name="curso" class=
+        "form-control my-2" required>
+
+         Semestre: <input class="form-control my-2" name="semestre" required>
+
+         Contenido: <textarea class="form-control my-2" name="contenido" >
+          
+         </textarea>
+
+         <input type="submit" value="Guardar" class="btn btn-primary" >
+         
+     </form>
+
+     <table class="table tacle-info">
+        <tr class="table-dark">
+            <th>Curso</th>
+            <th>Semestre</th>
+            <th>Contenido</th>
+            <th colspan="2"></th>
+        </tr>
+     {% for asignatura in asignatura %}
+         <tr>
+            <td>{{ asignatura.curso }}</td>
+            <td>{{ asignatura.semestre }}</td>
+            <td>{{ asignatura.contenido }}</td>
+            <td>
+                <form action="{% url 'eliminar' asignatura.id %}" 
+                method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger">                    
+                    <i class="fa fa-trash"></i>
+
+                </button>
+
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'detalle' asignatura.id %}" 
+                method="post">
+                {% csrf_token %}
+                <button class="btn btn-warning">                    
+                    <i class="fa fa-edit"></i>
+
+                </button>
+
+                </form>
+            </td>
+         </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
